@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Auditoría de cookies — {{DOMINIO}}</title>
+<style>
+  :root {
+    --critica: #b3261e;
+    --alta: #b06000;
+    --media: #8a7a00;
+    --ok: #1e7a34;
+    --texto: #1f2328;
+    --borde: #d7dbe0;
+    --fondo-suave: #f6f8fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 24px;
+    background: #ffffff;
+    color: var(--texto);
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  h2 { font-size: 16px; margin: 32px 0 12px; }
+  .meta { color: #57606a; margin: 0 0 20px; }
+  .meta span { margin-right: 16px; }
+
+  .semaforo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .semaforo .punto {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .semaforo.rojo { background: #fdeceb; color: var(--critica); }
+  .semaforo.rojo .punto { background: var(--critica); }
+  .semaforo.naranja { background: #fdf1e3; color: var(--alta); }
+  .semaforo.naranja .punto { background: var(--alta); }
+  .semaforo.amarillo { background: #fdf8e3; color: var(--media); }
+  .semaforo.amarillo .punto { background: var(--media); }
+  .semaforo.verde { background: #e9f7ed; color: var(--ok); }
+  .semaforo.verde .punto { background: var(--ok); }
+
+  .conteos {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .conteo {
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    padding: 10px 16px;
+    min-width: 110px;
+  }
+  .conteo .numero { font-size: 22px; font-weight: 700; display: block; }
+  .conteo .etiqueta { color: #57606a; font-size: 12px; }
+  .conteo.critica .numero { color: var(--critica); }
+  .conteo.alta .numero { color: var(--alta); }
+  .conteo.media .numero { color: var(--media); }
+  .conteo.ok .numero { color: var(--ok); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 8px;
+  }
+  caption { text-align: left; color: #57606a; margin-bottom: 6px; }
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--borde);
+    vertical-align: top;
+  }
+  td { word-break: break-word; }
+  th {
+    background: var(--fondo-suave);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    color: #57606a;
+  }
+  td.severidad-critica { color: var(--critica); font-weight: 600; }
+  td.severidad-alta { color: var(--alta); font-weight: 600; }
+  td.severidad-media { color: var(--media); font-weight: 600; }
+
+  .vacio { color: #57606a; font-style: italic; padding: 12px 0; }
+
+  footer {
+    margin-top: 32px;
+    padding-top: 12px;
+    border-top: 1px solid var(--borde);
+    color: #57606a;
+    font-size: 12px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body { background: #0d1117; color: #e6edf3; }
+    .meta, .conteo .etiqueta, th, footer, .vacio { color: #9198a1; }
+    .conteo, th, td { border-color: #30363d; }
+    th { background: #161b22; }
+    .semaforo.rojo { background: #3a1614; }
+    .semaforo.naranja { background: #3a2a0f; }
+    .semaforo.amarillo { background: #3a340f; }
+    .semaforo.verde { background: #10321c; }
+  }
+</style>
+</head>
+<body>
+  <h1>Auditoría de cookies — {{DOMINIO}}</h1>
+  <p class="meta">
+    <span><strong>URL:</strong> {{URL}}</span>
+    <span><strong>Página de cookies:</strong> {{URL_PAGINA_COOKIES}}</span>
+    <span><strong>Generado:</strong> {{TIMESTAMP}}</span>
+  </p>
+
+  <div class="semaforo {{SEMAFORO_CLASE}}">
+    <span class="punto"></span>
+    {{SEMAFORO_TEXTO}}
+  </div>
+
+  <div class="conteos">
+    <div class="conteo critica"><span class="numero">{{CONTEO_CRITICA}}</span><span class="etiqueta">Crítica</span></div>
+    <div class="conteo alta"><span class="numero">{{CONTEO_ALTA}}</span><span class="etiqueta">Alta</span></div>
+    <div class="conteo media"><span class="numero">{{CONTEO_MEDIA}}</span><span class="etiqueta">Media</span></div>
+    <div class="conteo ok"><span class="numero">{{CONTEO_CORRECTA}}</span><span class="etiqueta">Correctas</span></div>
+  </div>
+
+  <h2>Discrepancias</h2>
+  {{TABLA_DISCREPANCIAS}}
+
+  <h2>Incidencias</h2>
+  {{TABLA_INCIDENCIAS}}
+
+  <footer>
+    Generado por la skill <strong>check-cookies</strong> de Claude Code. Los CSV <code>cookies.csv</code> y
+    <code>correspondencia.csv</code>, en la misma carpeta, contienen los datos completos.
+  </footer>
+</body>
+</html>

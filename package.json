@@ -1,0 +1,17 @@
+{
+  "name": "skill-check-cookies",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Auditoría de cookies web: compara las cookies reales del navegador con las declaradas en la página de cookies y en el panel de configuración del banner.",
+  "scripts": {
+    "audit": "node .claude/skills/check-cookies/scripts/audit.mjs",
+    "report": "node .claude/skills/check-cookies/scripts/build_report.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "playwright": "^1.63.0"
+  }
+}
